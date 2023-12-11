@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ExhibitService } from '../exhibit.service';
 
 @Component({
   selector: 'app-main',
-  standalone: true,
-  imports: [],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrls: ['./main.component.scss'],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
+  public title: string = 'HARSHIT'
+  public exhibits!: any[]; // Change the type based on the actual structure of exhibit data
 
+  constructor(private exhibitService: ExhibitService) { }
+
+  ngOnInit(): void {
+    this.exhibitService.getAllExhibits().subscribe((exhibits) => {
+      this.exhibits = exhibits;
+    });
+  }
 }
